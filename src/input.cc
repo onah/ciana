@@ -16,9 +16,9 @@ http://opensource.org/licenses/mit-license.php
 
 namespace Ciana {
 
-unsigned get_param_of_number(char *arg) {
+static unsigned get_param_of_number(char *arg) {
   long result;
-  result = strtol(arg, NULL, 10);
+  result = strtol(arg, nullptr, 10);
   if (result <= 0 || result > std::numeric_limits<int>::max()) {
     return 0;
   }

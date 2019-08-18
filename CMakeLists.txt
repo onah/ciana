@@ -7,7 +7,7 @@
 
 cmake_minimum_required(VERSION 3.3)
 
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE string "clang++ compiler" FORCE)
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++" CACHE STRING "clang++ compiler" FORCE)
 #set(CMAKE_CXX_FLAGS "-Werror -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic")
 set(CMAKE_CXX_FLAGS "-Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic")
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
@@ -20,6 +20,7 @@ add_executable(ciana
   src/output.cc
   src/analyzer.cc
   src/location.cc
+  src/ast_reader.cc
   src/ast_reader_creater.cc
   src/ast_reader_libclang.cc
 )

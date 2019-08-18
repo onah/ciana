@@ -7,17 +7,10 @@ This software is released under MIT License,
 http://opensource.org/licenses/mit-license.php
 */
 
-#ifndef CIANA_RESULT_H
-#define CIANA_RESULT_H
+#include "ast_reader.h"
 
 namespace Ciana {
 
-class Result {
- public:
-  Result();
-  void print();
-};
+ASTReader::~ASTReader() {}
 
 }  // namespace Ciana
-
-#endif /* CIANA_RESULT_H */

@@ -11,13 +11,13 @@ http://opensource.org/licenses/mit-license.php
 #define CIANA_ASTREADER_H
 
 #include <vector>
+#include "location.h"
 
 namespace Ciana {
 
 class ASTReader {
  public:
-  ASTReader() {}
-  virtual ~ASTReader() {}
+  virtual ~ASTReader();
   virtual bool initialize() = 0;
   virtual bool get_used_locations(Location input, std::vector<Location> &output) = 0;
   virtual bool get_impact_variables(Location input, std::vector<Location> &output) = 0;
