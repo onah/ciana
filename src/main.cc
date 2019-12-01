@@ -8,27 +8,34 @@ http://opensource.org/licenses/mit-license.php
 */
 
 #include "analyzer.h"
-#include "location.h"
 #include "input.h"
+#include "location.h"
 #include "output.h"
-
-#include <vector>
 #include <iostream>
+#include <vector>
+#include <array>
 
-int main(int argc, char *argv[]) {
+enum CianaError {
+  NORMAL = 0,
+  INPUT_ERROR = 10,
+  ANALYZE_ERROR = 11,
+};
+
+int main(const int argc, const char **argv) {
   Ciana::Input input;
+
   if (!input.set_data(argc, argv)) {
     std::cout << "Usage: ciana <filename> <line> <column>" << std::endl;
-    return 10;
+    return CianaError::INPUT_ERROR;
   }
 
   Ciana::Analyzer analyzer;
   if (!analyzer.run(input)) {
-    return 11;
+    return CianaError::ANALYZE_ERROR;
   }
 
   Ciana::Output output;
   output.run(analyzer.get_impact_objects());
 
-  return 0;
+  return CianaError::NORMAL;
 }

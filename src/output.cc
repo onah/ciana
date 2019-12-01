@@ -7,19 +7,21 @@ This software is released under MIT License,
 http://opensource.org/licenses/mit-license.php
 */
 
-#include "output.h"
 #include "location.h"
+#include "output.h"
+#include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
-#include <fstream>
 
 namespace Ciana {
 
-std::string Output::get_strings_of_line(std::string file, unsigned line) {
-  std::ifstream ifs(file);
+std::string Output::get_strings_of_line(const std::string& file, unsigned line) {
+  const std::string error_result;
+
+  std::ifstream ifs(file, std::ios_base::in);
   if (!ifs) {
-    return "";
+    return error_result;
   }
 
   std::string buf;
@@ -31,20 +33,19 @@ std::string Output::get_strings_of_line(std::string file, unsigned line) {
     }
   }
 
-  return "";
+  return error_result;
 }
 
-void Output::run(std::vector<Location> cursors) {
-  for (auto itr = cursors.begin(); itr != cursors.end(); ++itr) {
+void Output::run(const std::vector<Location> &cursors) {
+  for (const auto& e: cursors) {
     // std::string name = (*itr).get_name();
-    std::string filename = (*itr).get_filename();
-    unsigned line = (*itr).get_line();
-    unsigned column = (*itr).get_column();
+    std::string filename = e.get_filename();
+    unsigned line = e.get_line();
+    unsigned column = e.get_column();
 
     std::cout << filename << "|" << line << " col " << column << "|";
     std::cout << get_strings_of_line(filename, line) << std::endl;
   }
-  return;
 }
 
 }  // namespace Ciana

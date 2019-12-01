@@ -7,7 +7,8 @@ This software is released under MIT License,
 http://opensource.org/licenses/mit-license.php
 */
 
-#pragma once
+#ifndef INPUT_H
+#define INPUT_H
 
 #include <string>
 
@@ -16,15 +17,17 @@ namespace Ciana {
 class Input {
  private:
   std::string filename;
-  unsigned line;
-  unsigned column;
+  unsigned line{0};
+  unsigned column{0};
 
  public:
-  Input() : filename(std::string("")), line(0), column(0){}
-  bool set_data(int, char *[]);
   std::string get_filename();
-  unsigned get_line();
-  unsigned get_column();
+  bool  set_data(int argc, const char **argv);
+  unsigned  get_line();
+  unsigned  get_column();
 };
 
 }  // namespace Ciana
+
+#endif // INPUT_H
+

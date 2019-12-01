@@ -7,11 +7,11 @@ This software is released under MIT License,
 http://opensource.org/licenses/mit-license.php
 */
 
-#ifndef CIANA_ASTREADER_H
-#define CIANA_ASTREADER_H
+#ifndef SRC_AST_READHER_H
+#define SRC_AST_READHER_H
 
-#include <vector>
 #include "location.h"
+#include <vector>
 
 namespace Ciana {
 
@@ -25,4 +25,4 @@ class ASTReader {
 };
 
 }  // namespace Ciana
-#endif /*  CIANA_ASTREADER_H */
+#endif // SRC_AST_READHER_H

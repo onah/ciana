@@ -7,21 +7,21 @@ This software is released under MIT License,
 http://opensource.org/licenses/mit-license.php
 */
 
-#ifndef CIANA_OUTPUT_H
-#define CIANA_OUTPUT_H
+#ifndef OUTPUT_H
+#define OUTPUT_H
 
-#include <vector>
-#include <string>
 #include "location.h"
+#include <string>
+#include <vector>
 
 namespace Ciana {
 
 class Output {
 public:
-  void run(std::vector<Location>);
-  std::string get_strings_of_line(std::string, unsigned);
+  void run(const std::vector<Location> &cursors);
+  std::string get_strings_of_line(const std::string &file, unsigned line);
 };
 
 }  // namespace Ciana
 
-#endif /* CIANA_OUTPUT_H */
+#endif // OUTPUT_H

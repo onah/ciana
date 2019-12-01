@@ -52,12 +52,12 @@ unsigned Location::get_column() const {
   return column;
 }
 
-bool Location::operator==(const Location &other) const {
+bool Location::is_same(const Location &other) const {
   if (filename == other.get_filename() &&
       line == other.get_line() &&
       column == other.get_column()) {
     return true;
-  }
+  } 
   return false;
 }
 

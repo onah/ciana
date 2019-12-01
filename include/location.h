@@ -7,8 +7,8 @@ This software is released under MIT License,
 http://opensource.org/licenses/mit-license.php
 */
 
-#ifndef CIANA_LOCATION_H
-#define CIANA_LOCATION_H
+#ifndef LOCATION_H
+#define LOCATION_H
 
 #include <string>
 
@@ -21,17 +21,22 @@ class Location {
   unsigned column;
 
  public:
+  ~Location() = default;
   Location(std::string input_filename, unsigned input_line, unsigned input_column);
   Location(const Location &obj);
   Location &operator=(const Location &obj);
+
+  Location(Location&&) = default;
+  Location& operator=(Location&&) = default;
 
   void set_data(std::string, unsigned, unsigned);
   std::string get_filename() const;
   unsigned get_line() const;
   unsigned get_column() const;
-  bool operator==(const Location &other) const;
+  bool is_same(const Location &other) const;
+
 };
 
 }  // namespace Ciana
 
-#endif /* CIANA_LOCATION_H */
+#endif // LOCATION_H

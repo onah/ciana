@@ -10,7 +10,7 @@ http://opensource.org/licenses/mit-license.php
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 #include "clang/ASTMatchers/ASTMatchers.h"
 
-#include "ast_reader_libclang.h"
+#include "ast_reader_libtooling.h"
 #include "location.h"
 #include <string>
 
@@ -149,7 +149,7 @@ std::vector<ASTCursor> UsedLocation::get_output() {
   return output;
 }
 
-bool ASTReaderLibClang::initialize() {
+bool ASTReaderLibTooling::initialize() {
   llvm::StringRef filepath;
   filepath =
       "../test/sample1/build/compile_commands.json";
@@ -169,7 +169,7 @@ bool ASTReaderLibClang::initialize() {
   return true;
 }
 
-bool ASTReaderLibClang::get_used_locations(Location input, std::vector<Location> &output) {
+bool ASTReaderLibTooling::get_used_locations(Location input, std::vector<Location> &output) {
 
   clang::ast_matchers::StatementMatcher declRefExprMatcher =
     clang::ast_matchers::declRefExpr().bind("declrefexpr");
@@ -208,7 +208,7 @@ bool ASTReaderLibClang::get_used_locations(Location input, std::vector<Location>
   return false;
 }
 
-bool ASTReaderLibClang::get_impact_variables(Location input, std::vector<Location> &results) {
+bool ASTReaderLibTooling::get_impact_variables(Location input, std::vector<Location> &results) {
   //TODO
   (void)input;
   (void)results;
@@ -233,7 +233,7 @@ bool ASTReaderLibClang::get_impact_variables(Location input, std::vector<Locatio
   return true;
 }
 
-bool ASTReaderLibClang::get_impact_funtions(Location input, std::vector<Location> &results) {
+bool ASTReaderLibTooling::get_impact_funtions(Location input, std::vector<Location> &results) {
   //TODO
   (void)input;
   (void)results;

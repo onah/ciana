@@ -38,11 +38,17 @@ bool Analyzer::has_impact(Location input) {
   }
   results.insert(results.end(), impact_functions.begin(), impact_functions.end());
 
-  for (auto itr = results.begin(); itr != results.end(); ++itr) {
-    auto result = std::find(impact_objects.begin(), impact_objects.end(), *itr);
-    if (result == impact_objects.end()) {
-      impact_objects.push_back(*itr);
-      bool ret = has_impact(*itr);
+  for (auto&& itr : results) {
+    bool find = false;
+    for (auto&& obj : impact_objects) {
+      if (obj.is_same(itr)) {
+        find = true;
+        break;
+      }
+   }
+   if (!find) {
+    impact_objects.push_back(itr);
+     bool ret = has_impact(itr);
       if (ret == false) {
         return false;
       }

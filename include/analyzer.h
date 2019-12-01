@@ -7,15 +7,15 @@ This software is released under MIT License,
 http://opensource.org/licenses/mit-license.php
 */
 
-#ifndef CIANA_ANALYZER_H
-#define CIANA_ANALYZER_H
+#ifndef ANALYZER_H
+#define ANALYZER_H
 
-#include <vector>
-#include <string>
-#include <memory>
-#include "location.h"
 #include "ast_reader.h"
 #include "input.h"
+#include "location.h"
+#include <memory>
+#include <string>
+#include <vector>
 
 namespace Ciana {
 
@@ -33,4 +33,4 @@ class Analyzer {
 
 }  // namespace Ciana
 
-#endif /* CIANA_ANALYZER_H */
+#endif // ANALYZER_H
