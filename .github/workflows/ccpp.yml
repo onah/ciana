@@ -9,6 +9,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: setup 
+      run: |
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        ./llvm.sh 9
+        apt install llvm-9-dev clang-9-dev libclang-9-dev
     - name: make
       run: |
         mkdir build
