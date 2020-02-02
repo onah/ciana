@@ -1,0 +1,3 @@
+[submodule "test/ciana_test"]
+	path = test/ciana_test
+	url = https://github.com/onah/ciana_test.git
