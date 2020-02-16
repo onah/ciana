@@ -19,12 +19,12 @@ include_directories(include)
 #include_directories(/usr/lib/llvm-9/include)
 #link_directories(/usr/lib/llvm-9/lib)
 
+# llvm/clang
 find_package(LLVM REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION} in ${LLVM_INSTALL_PREFIX}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 find_package(Clang REQUIRED CONFIG HINTS "${LLVM_INSTALL_PREFIX}/lib/cmake/clang")
 message(STATUS "Found Clang in ${CLANG_INSTALL_PREFIX}")
-
 
 add_executable(ciana
   src/main.cc
@@ -48,4 +48,10 @@ target_link_libraries(ciana PRIVATE
   clangBasic
   LLVM
 )
+
+# testing
+enable_testing()
+include(cmake/gtest.cmake)
+add_subdirectory(test)
+
 

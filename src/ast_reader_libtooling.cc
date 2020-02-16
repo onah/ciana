@@ -14,6 +14,8 @@ http://opensource.org/licenses/mit-license.php
 #include "location.h"
 #include <string>
 
+#include <fstream>
+
 namespace Ciana {
 
 class ASTCursor {
@@ -45,7 +47,6 @@ Location ASTCursor::get_location() {
 class ASTCursorList {
 private:
   std::vector<ASTCursor> cursor_list;
-
 public:
   unsigned search_id(std::string filename, unsigned line, unsigned column);
   void push(ASTCursor input);
@@ -151,8 +152,14 @@ std::vector<ASTCursor> UsedLocation::get_output() {
 
 bool ASTReaderLibTooling::initialize() {
   llvm::StringRef filepath;
-  filepath =
-      "../test/sample1/build/compile_commands.json";
+
+  std::ifstream ReadFile;
+  std::string Buffer;
+
+  ReadFile.open(".cianarc", std::ios::in);
+  std::getline(ReadFile, Buffer);
+
+  filepath = Buffer;
 
   std::string ErrorMessage;
 
@@ -162,7 +169,7 @@ bool ASTReaderLibTooling::initialize() {
       clang::tooling::JSONCommandLineSyntax::AutoDetect));
 
   if (!compdb) {
-    llvm::errs() << ErrorMessage;
+    llvm::errs() << ErrorMessage << "\n";
     return false;
   }
 
