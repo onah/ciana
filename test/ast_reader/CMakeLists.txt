@@ -12,6 +12,7 @@ add_executable(${MY_BINARY_NAME}
 
 target_include_directories(${MY_BINARY_NAME} PUBLIC
   ${GTEST_INCLUDE_PATH}
+  ${CLANG_INCLUDE_DIRS}
   )
 
 target_link_libraries(${MY_BINARY_NAME}
