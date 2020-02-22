@@ -19,5 +19,5 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -D LLVM_DIR=/usr/lib/llvm-9/lib/cmake
+        cmake .. -D LLVM_DIR=/usr/lib/llvm-9
         make
