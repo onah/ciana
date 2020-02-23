@@ -21,8 +21,8 @@ jobs:
         cd build
         cmake .. -DLLVM_DIR=/usr/lib/llvm-9/cmake
         make
-    - name: test
-      run: |
-        cd build
-        ctest
+#    - name: test
+#      run: |
+#        cd build
+#        ctest
 

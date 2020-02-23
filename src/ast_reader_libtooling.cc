@@ -12,6 +12,7 @@ http://opensource.org/licenses/mit-license.php
 
 #include "ast_reader_libtooling.h"
 #include "location.h"
+#include <clang/Tooling/Tooling.h>
 #include <string>
 
 #include <fstream>
@@ -176,6 +177,32 @@ bool ASTReaderLibTooling::initialize() {
   return true;
 }
 
+bool ASTReaderLibTooling::getUsedLocationsFromId(llvm::ArrayRef<std::string> SourcePaths, int64_t Id, std::vector<Location> &Output) {
+  clang::ast_matchers::StatementMatcher DeclRefExprMatcher =
+    clang::ast_matchers::declRefExpr().bind("declrefexpr");
+
+  UsedLocation UsedLoc(Id);
+
+  clang::ast_matchers::MatchFinder Finder;
+  Finder.addMatcher(DeclRefExprMatcher, &UsedLoc);
+
+  clang::tooling::ClangTool Tool(*compdb, SourcePaths);
+
+  if (Tool.run(clang::tooling::newFrontendActionFactory(&Finder).get()) != 0) {
+    return false;
+  }
+
+  std::vector<ASTCursor> Resutls;
+  Resutls = UsedLoc.get_output();
+
+  for (auto Itr = Resutls.begin(); Itr != Resutls.end(); ++Itr) {
+    Location Loc = (*Itr).get_location();
+    Output.push_back(Loc);
+  }
+
+  return true;
+}
+
 bool ASTReaderLibTooling::get_used_locations(Location input, std::vector<Location> &output) {
 
   clang::ast_matchers::StatementMatcher declRefExprMatcher =
@@ -194,22 +221,10 @@ bool ASTReaderLibTooling::get_used_locations(Location input, std::vector<Locatio
   cursor_getter.set_cursor(input.get_line(), input.get_column());
 
   if (Tool.run(clang::tooling::newFrontendActionFactory(&finder).get()) == 0) {
-    clang::tooling::ClangTool Tool2(*compdb, source_paths);
-    int64_t id = cursor_getter.get_id();
-    UsedLocation used_location(id);
-    clang::ast_matchers::MatchFinder finder2;
-    finder2.addMatcher(declRefExprMatcher, &used_location);
+    int64_t Id = cursor_getter.get_id();
+    getUsedLocationsFromId(source_paths, Id, output);
 
-    if (Tool2.run(clang::tooling::newFrontendActionFactory(&finder2).get()) == 0) {
-      std::vector<ASTCursor> resutls;
-      resutls = used_location.get_output();
-
-      for (auto itr = resutls.begin(); itr != resutls.end(); ++itr) {
-        Location loc = (*itr).get_location();
-        output.push_back(loc);
-      }
-      return true;
-    }
+    return true;
   }
 
   return false;

@@ -10,6 +10,7 @@ http://opensource.org/licenses/mit-license.php
 #ifndef AST_READER_LIBTOOLING_H
 #define AST_READER_LIBTOOLING_H
 
+#include <bits/stdint-intn.h>
 #include <vector>
 #include <string>
 
@@ -31,6 +32,10 @@ class ASTReaderLibTooling : public ASTReader {
   bool get_used_locations(Location input, std::vector<Location> &output);
   bool get_impact_variables(Location input, std::vector<Location> &output);
   bool get_impact_funtions(Location input, std::vector<Location> &output);
+
+  /// get used locations ...
+  bool getUsedLocationsFromId(llvm::ArrayRef<std::string> SourcePaths, int64_t Id, std::vector<Location> &Output);
+
 };
 
 }  // namespace Ciana
